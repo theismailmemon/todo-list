@@ -7,13 +7,13 @@
       <div v-if="todoList.length === 0" class="text-blue-950 mt-10 text-center text-2xl">Your todo list is empty.</div>
 
       <div v-else class="sm:mt-6">
-        <div class="bg-blue-950 shadow w-full rounded-xl sm:px-6 px-5 sm:py-3 py-[10px] sm:my-5 my-4 flex justify-between"
+        <div class="bg-blue-950 shadow w-full rounded-xl sm:px-6 px-4 sm:py-3 py-[10px] sm:my-5 my-4 flex justify-between"
           v-for="(item, index) in todoList" :key="index">
           <div class="flex items-center sm:gap-5 gap-3">
-            <input type="checkbox" name="" id="" class="sm:h-4 sm:w-4 h-3 w-3 cursor-pointer" @change="toggleRecycle(index)"
+            <input type="checkbox" name="" id="" class="sm:h-4 sm:w-4 h-[18px] w-[18px] cursor-pointer" @change="toggleRecycle(index)"
               v-if="item.isTrueRecycle === true">
-            <h1 v-if="item.isTrueRecycle === true" class="text-white sm:text-2xl">{{ item.name }}</h1>
-            <strike v-if="item.isTrueRecycle === false" class="text-white sm:text-2xl">{{ item.name }}</strike>
+            <h1 v-if="item.isTrueRecycle === true" class="text-white text-lg sm:text-2xl">{{ item.name }}</h1>
+            <strike v-if="item.isTrueRecycle === false" class="text-white text-lg sm:text-2xl">{{ item.name }}</strike>
           </div>
           <div class="flex items-center sm:gap-3 gap-2">
             <svg @click="toggleRecycle(index)" v-if="item.isTrueRecycle === false" xmlns="http://www.w3.org/2000/svg"
