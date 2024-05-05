@@ -1,7 +1,7 @@
 <template>
   <div @click="cancelDelete" v-if="isModalOpen"
     class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-xl" @click.stop>
+    <div class="bg-white max-w-2xl p-6 rounded-lg shadow-xl" @click.stop>
       <h2 class="text-lg font-bold mb-4">Confirm Deletion</h2>
       <p>Are you sure you want to delete "{{ todoToDelete.name }}"?</p>
       <div class="flex justify-end mt-4">
