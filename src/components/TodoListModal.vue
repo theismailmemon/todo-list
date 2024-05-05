@@ -1,9 +1,8 @@
 <template>
   <div>
     <transition name="modal-fade" appear>
-      <div v-if="isModalOpen" class="fixed flex justify-center inset-0 z-50 items-center bg-black bg-opacity-50"
-        @click="$emit('closeModal')">
-        <div class="bg-blue-950 sm:w-1/4 w-full sm:mx-0 mx-6 sm:h-64 h-52 rounded-2xl" @click.stop>
+      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50"  @click="$emit('closeModal')">
+        <div class="bg-blue-950 sm:max-w-[420px] w-full sm:ml-0 ml-10 h-full" @click.stop>
           <div class="border-white border-b flex justify-between px-5 py-3">
             <h1 class="text-white text-xl">Add Todo</h1>
             <svg @click="$emit('closeModal')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -20,7 +19,7 @@
             </div>
             <div class="flex justify-end mt-5">
               <button @click="handleAdd"
-                class="bg-white px-4 py-2 text-blue-950 rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
+                class="bg-white px-4 py-2 mx-10 w-full text-blue-950 rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
                 Add
               </button>
             </div>
@@ -45,10 +44,14 @@ export default {
   },
   methods: {
     handleAdd() {
-      if (this.inputAdd.length <= 0) { } else {
-        this.addTodo(this.inputAdd);
+      if (this.inputAdd.length === 0) { } else {
+        this.addTodo.push(
+          {
+          name: this.inputAdd,
+          isTrueRecycle: true
+        },
+        );
         this.inputAdd = ""; // Clear input field after adding todo
-        this.showError = false; // Reset error state after successfully adding todo
         this.$emit('closeModal')
       }
     }

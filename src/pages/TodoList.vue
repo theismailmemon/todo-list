@@ -1,66 +1,23 @@
-<script>
-import todoListModal from '../components/TodoListModal.vue'
-export default {
-  components: {
-    todoListModal
-  },
-  data() {
-    return {
-      isModalOpen: false,
-      todoList: [
-        {
-          name: "Prayer",
-          isTrueRecycle: true
-        },
-        {
-          name: "School",
-          isTrueRecycle: true
-        },
-        {
-          name: "Colleage",
-          isTrueRecycle: true
-        },
-        {
-          name: "University",
-          isTrueRecycle: true
-        },
-        {
-          name: "Academy",
-          isTrueRecycle: true
-        },
-      ]
-    }
-  },
-  methods: {
-    deleteTodo(index) {
-      this.todoList.splice(index, 1);
-    },
-    addTodo(inputAdd) {
-      this.todoList.push({
-        name: inputAdd,
-        isTrueRecycle: true
-      });
-    }
-  }
-}
-</script>
-<template>
+
+
+  <template>
   <div class="relative h-screen">
     <div class="mx-auto sm:container sm:py-24 py-5 px-5">
       <h1 class="sm:text-3xl text-2xl font-medium text-blue-950">Todo List</h1>
-      <div class="sm:mt-6">
-        <div class="bg-blue-950 shadow w-full rounded-xl px-6 sm:py-3 py-2 my-5 flex justify-between"
+      <div v-if="todoList.length === 0" class="text-blue-950 mt-10 text-center text-2xl">Your todo list is empty.</div>
+
+      <div v-else class="sm:mt-6">
+        <div class="bg-blue-950 shadow w-full rounded-xl sm:px-6 px-5 sm:py-3 py-[10px] sm:my-5 my-4 flex justify-between"
           v-for="(item, index) in todoList" :key="index">
-          <div class="flex items-center gap-5">
-            <input type="checkbox" name="" id="" class="h-4 w-4 cursor-pointer" @change="item.isTrueRecycle = false"
+          <div class="flex items-center sm:gap-5 gap-3">
+            <input type="checkbox" name="" id="" class="sm:h-4 sm:w-4 h-3 w-3 cursor-pointer" @change="toggleRecycle(index)"
               v-if="item.isTrueRecycle === true">
-            <h1 v-if="item.isTrueRecycle === true" class="text-white text-2xl">{{ item.name }}</h1>
-            <strike v-if="item.isTrueRecycle === false" class="text-white text-2xl">{{ item.name }}</strike>
+            <h1 v-if="item.isTrueRecycle === true" class="text-white sm:text-2xl">{{ item.name }}</h1>
+            <strike v-if="item.isTrueRecycle === false" class="text-white sm:text-2xl">{{ item.name }}</strike>
           </div>
-          <div class="flex items-center gap-3">
-            <svg @click="item.isTrueRecycle = true" v-if="item.isTrueRecycle === false"
-              xmlns="http://www.w3.org/2000/svg"
-              class="text-white h-5 w-5 cursor-pointer transition ease-in-out duration-300 hover:opacity-80 icon icon-tabler icon-tabler-refresh"
+          <div class="flex items-center sm:gap-3 gap-2">
+            <svg @click="toggleRecycle(index)" v-if="item.isTrueRecycle === false" xmlns="http://www.w3.org/2000/svg"
+              class="text-white sm:h-5 sm:w-5 h-4 w-4 cursor-pointer transition ease-in-out duration-300 hover:opacity-80 icon icon-tabler icon-tabler-refresh"
               viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
               stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -68,8 +25,8 @@ export default {
               <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
             </svg>
 
-            <svg @click="deleteTodo(index)" xmlns="http://www.w3.org/2000/svg"
-              class="text-white h-5 w-5 cursor-pointer transition ease-in-out duration-300 hover:opacity-80 icon icon-tabler icon-tabler-trash"
+            <svg @click="openDeleteModal(item)" xmlns="http://www.w3.org/2000/svg"
+              class="text-white sm:h-5 sm:w-5 h-4 w-4 cursor-pointer transition ease-in-out duration-300 hover:opacity-80 icon icon-tabler icon-tabler-trash"
               viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
               stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -84,11 +41,15 @@ export default {
       </div>
     </div>
     <div>
-      <todoListModal :isModalOpen="isModalOpen" @closeModal="isModalOpen = false" :addTodo="addTodo" />
+      <deleteTodoModal :isModalOpen="deleteModalOpen" :todoToDelete="todoToDelete" @cancel-delete="cancelDelete"
+        @confirm-delete="deleteTodo" />
+    </div>
+    <div>
+      <todoListModal :isModalOpen="addModalOpen" @closeModal="addModalOpen = false" :addTodo="todoList"/>
     </div>
     <div class="pt-10">
       <div class="fixed bottom-16 sm:right-16 right-6">
-        <div class="bg-blue-950 p-1 rounded-lg cursor-pointer" @click="isModalOpen = true">
+        <div class="bg-blue-800 p-1 rounded-lg cursor-pointer" @click="openAddModal">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus text-white h-8 w-8"
             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -101,3 +62,69 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import todoListModal from '../components/TodoListModal.vue';
+import deleteTodoModal from '../components/DeleteTodoModal.vue';
+
+export default {
+  components: {
+    todoListModal,
+    deleteTodoModal
+  },
+  data() {
+    return {
+      todoList: [
+        {
+          name: "Prayer",
+          isTrueRecycle: true
+        },
+        {
+          name: "School",
+          isTrueRecycle: true
+        },
+        {
+          name: "College",
+          isTrueRecycle: false
+        },
+        {
+          name: "University",
+          isTrueRecycle: true
+        },
+        {
+          name: "Academy",
+          isTrueRecycle: true
+        },
+      ],
+      deleteModalOpen: false,
+      addModalOpen: false,
+      todoToDelete: null
+    }
+  },
+  methods: {
+    openDeleteModal(todo) {
+      this.todoToDelete = todo;
+      this.deleteModalOpen = true;
+    },
+    openAddModal() {
+      this.addModalOpen = true;
+    },
+    cancelDelete() {
+      this.deleteModalOpen = false;
+      this.addModalOpen = false;
+      this.todoToDelete = null;
+    },
+    deleteTodo(todoToDelete) {
+      const index = this.todoList.indexOf(todoToDelete);
+      if (index !== -1) {
+        this.todoList.splice(index, 1);
+      }
+      this.deleteModalOpen = false;
+      this.todoToDelete = null;
+    },
+    toggleRecycle(index) {
+      this.todoList[index].isTrueRecycle = !this.todoList[index].isTrueRecycle;
+    }
+  }
+}
+</script>
