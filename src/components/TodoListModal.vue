@@ -1,8 +1,10 @@
 <template>
   <div>
     <transition name="modal-fade" appear>
-      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50"  @click="$emit('closeModal')">
-        <div class="bg-white sm:max-w-[420px] w-full sm:ml-0 ml-10 h-full" @click.stop>
+      <div @click="$emit('closeModal')" @touchstart="handleTouchStart" @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd" v-if="isModalOpen"
+        class="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50">
+        <div class="bg-white sm:max-w-[450px] w-full sm:ml-0 ml-14 h-full" @click.stop>
           <div class="border-blue-950 border-b flex justify-between px-5 py-3">
             <h1 class="text-blue-950 text-xl">Add Todo</h1>
             <svg @click="$emit('closeModal')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -17,16 +19,16 @@
                 class="bg-blue-950 shadow w-full focus:outline-none text-white px-4 py-2 rounded-lg placeholder:text-white text-lg"
                 placeholder="Add Todo">
             </div>
-          
+
           </div>
-          <div class="fixed bottom-5 px-5 border-t pt-3 w-[22%]">
-             <div>
+          <div class="fixed bottom-5 px-5 border-t pt-5 w-[22%]">
+            <div>
               <button @click="handleAdd"
-                class="bg-blue-950 px-4 py-2 w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
+                class="bg-blue-950 text-xl px-4 py-2 w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
                 Add
               </button>
-             </div>
             </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -46,13 +48,33 @@ export default {
     };
   },
   methods: {
+    handleTouchStart(event) {
+      this.touchStartX = event.touches[0].clientX;
+
+    },
+    handleTouchMove(event) {
+      const touchMoveX = event.touches[0].clientX;
+      if (touchMoveX - this.touchStartX > 50) {
+        // If sliding right, hide swipe indicator
+
+      }
+    },
+    handleTouchEnd(event) {
+      const touchEndX = event.changedTouches[0].clientX;
+      if (touchEndX - this.touchStartX > 50) {
+        // If the touch ended with a left swipe (positive difference in X coordinates)
+        this.$emit('closeModal');
+      }
+
+    },
+
     handleAdd() {
       if (this.inputAdd.length === 0) { } else {
         this.addTodo.push(
           {
-          name: this.inputAdd,
-          isTrueRecycle: true
-        },
+            name: this.inputAdd,
+            isTrueRecycle: true
+          },
         );
         this.inputAdd = ""; // Clear input field after adding todo
         this.$emit('closeModal')
