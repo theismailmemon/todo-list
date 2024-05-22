@@ -17,15 +17,15 @@
             <div class=" mt-5 h-full">
               <div class="sm:px-5 px-4">
                 <input v-model="inputAdd" type="text"
-                  class="border w-full focus:outline-none px-4 py-2 rounded-lg  text-lg" placeholder="Type a Todo">
+                  class="border w-full focus:outline-none px-4 sm:py-2 py-[7px] rounded-lg  text-lg" placeholder="Type a Todo">
               </div>
               <div class="w-full sm:h-[calc(100%-145px)] h-[calc(100%-140px)] flex items-end">
-<div class="border-t w-full sm:px-5 px-4 sm:pt-5 pt-4">
-  <button @click="handleAdd"
-                  class="bg-blue-950 sm:text-xl text-lg px-4 py-2 w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
-                  Add
-                </button>
-</div>
+                <div class="border-t w-full sm:px-5 px-4 sm:pt-5 pt-4">
+                  <button @click="handleAdd"
+                    class="bg-blue-950 sm:text-xl text-lg px-4 sm:py-2 py-[7px] w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
+                    Add
+                  </button>
+                </div>
               </div>
             </div>
 
