@@ -2,7 +2,7 @@
 
   <template>
   <div class="relative h-screen">
-    <div class="mx-auto sm:container sm:py-24 py-5 px-5">
+    <div class="mx-auto sm:container sm:py-24 py-5 sm:px-5 px-4">
       <h1 class="sm:text-3xl text-2xl font-medium text-blue-950">Todo List</h1>
       <div v-if="todoList.length === 0" class="text-blue-950 mt-10 text-center text-2xl">Your todo list is empty.</div>
 

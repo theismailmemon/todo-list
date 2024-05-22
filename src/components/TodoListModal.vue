@@ -6,7 +6,7 @@
         class="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50">
         <div class="bg-white sm:max-w-[450px] w-full sm:ml-0 ml-14 h-full" @click.stop>
           <div class="h-full">
-            <div class="border-b flex justify-between items-center px-5 py-3">
+            <div class="border-b flex justify-between items-center sm:px-5 px-4 py-3">
               <h1 class="text-blue-950 text-2xl">Add Todo</h1>
               <svg @click="$emit('closeModal')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor"
@@ -15,12 +15,12 @@
               </svg>
             </div>
             <div class=" mt-5 h-full">
-              <div class="px-5">
+              <div class="sm:px-5 px-4">
                 <input v-model="inputAdd" type="text"
                   class="border w-full focus:outline-none px-4 py-2 rounded-lg  text-lg" placeholder="Type a Todo">
               </div>
               <div class="w-full sm:h-[calc(100%-145px)] h-[calc(100%-140px)] flex items-end">
-<div class="border-t w-full px-5 sm:pt-5 pt-4">
+<div class="border-t w-full sm:px-5 px-4 sm:pt-5 pt-4">
   <button @click="handleAdd"
                   class="bg-blue-950 sm:text-xl text-lg px-4 py-2 w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
                   Add
