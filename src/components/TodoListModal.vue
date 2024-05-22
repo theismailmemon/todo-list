@@ -14,12 +14,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
               </svg>
             </div>
-            <div class=" mt-5 h-full">
+            <div class=" mt-4 h-full">
               <div class="sm:px-5 px-4">
+                <label for="">Type a Todo</label>
                 <input v-model="inputAdd" type="text"
-                  class="border w-full focus:outline-none px-4 sm:py-2 py-[7px] rounded-lg  text-lg" placeholder="Type a Todo">
+                  class="border mt-2 w-full focus:outline-none px-4 sm:py-2 py-[7px] rounded-lg text-lg">
               </div>
-              <div class="w-full sm:h-[calc(100%-145px)] h-[calc(100%-140px)] flex items-end">
+              <div class="w-full sm:h-[calc(100%-172px)] h-[calc(100%-166px)] flex items-end">
                 <div class="border-t w-full sm:px-5 px-4 sm:pt-5 pt-4">
                   <button @click="handleAdd"
                     class="bg-blue-950 sm:text-xl text-lg px-4 sm:py-2 py-[7px] w-full text-white rounded-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-300">
@@ -91,3 +92,4 @@ export default {
   opacity: 0;
 }
 </style>
+<!-- sm:h-[calc(100%-145px)] h-[calc(100%-140px)] -->
