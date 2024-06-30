@@ -18,7 +18,7 @@
               <div class="sm:px-5 px-4">
                 <label for="">Type a Todo</label>
                 <input v-model="inputAdd" type="text"
-                  class="border mt-2 w-full focus:outline-none px-4 sm:py-2 py-[7px] rounded-lg text-lg">
+                  class="border focus:border-gray-400 mt-2 w-full focus:outline-none px-4 sm:py-2 py-[7px] rounded-lg text-lg">
               </div>
               <div class="w-full sm:h-[calc(100%-172px)] h-[calc(100%-166px)] flex items-end">
                 <div class="border-t w-full sm:px-5 px-4 sm:pt-5 pt-4">

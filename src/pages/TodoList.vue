@@ -78,24 +78,44 @@ export default {
     return {
       todoList: [
         {
-          name: "Prayer",
+          name: "Gym",
           isTrueRecycle: true
         },
         {
-          name: "School",
+          name: "Study",
           isTrueRecycle: true
         },
         {
-          name: "College",
+          name: "Work",
+          isTrueRecycle: true
+        },
+        {
+          name: "Cook",
           isTrueRecycle: false
         },
         {
-          name: "University",
+          name: "Clean",
           isTrueRecycle: true
         },
         {
-          name: "Academy",
+          name: "Walk",
           isTrueRecycle: true
+        },
+        {
+          name: "Read",
+          isTrueRecycle: true
+        },
+        {
+          name: "Sleep",
+          isTrueRecycle: true
+        },
+        {
+          name: "Play",
+          isTrueRecycle: true
+        },
+        {
+          name: "Relax",
+          isTrueRecycle: false
         },
       ],
       deleteModalOpen: false,
